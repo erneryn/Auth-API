@@ -76,17 +76,15 @@ class UserController {
           secret: req.body.secret,
           encoding: "base32"
       })
-      console.log(OTP)
-      // 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
-      // sgMail.setApiKey('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');
-      // const msg = {
-      //   to: email,
-      //   from: 'test@example.com',
-      //   subject: 'OTP',
-      //   text: 'this is your otp code',
-      //   html: `<strong>${OTP}</strong>`,
-      // };
-      // sgMail.send(msg);
+      sgMail.setApiKey(process.env.SECRET_KEY);
+      const msg = {
+        to: email,
+        from: 'test@example.com',
+        subject: 'OTP',
+        text: 'this is your otp code',
+        html: `<strong>${OTP}</strong>`,
+      };
+      sgMail.send(msg);
       res.send({message : 'otp succesfully send to your email'})
   }
 
@@ -112,7 +110,8 @@ class UserController {
             secret: result.dataValues.secretKey,
             encoding: "base32"
           })
-          sgMail.setApiKey('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');
+          
+          sgMail.setApiKey(process.env.SECRET_KEY);
           const msg = {
             to: email,
             from: 'test@example.com',
